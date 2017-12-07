@@ -4,11 +4,43 @@
   <meta charset="utf-8">
   <title>DataDrivenDocs</title>
   <base href="/">
-
+  <script src="https://d3js.org/d3.v3.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
   <app-root></app-root>
+  <div id="vizcontainer">
+  <svg style="width:500px;height:500px;border:1px lightgray solid;" />
+  </div>
 </body>
+<script type="text/javascript">
+
+  // d3.select("body").append("div").style("border","5px black solid").html("hello world")
+
+  // d3.select("div").style("background-color","pink").style("font","24px").attr("id","newDiv"). attr("class","d3Div").on("click",function(){alert('you clicked')})
+
+  // d3.select("body").append("svg");
+
+  d3.select("svg").append("line")
+  .attr("x1",20)
+  .attr("y1",20)
+  .attr("x2",400)
+  .attr("y2",400)
+  .style("stroke","black")
+  .style("stroke-width","2px")
+
+ d3.select("svg").append("text")
+ .attr("x",20)
+ .attr("y",20)
+ .text("HELLO")
+
+  d3.select("svg").append("circle")
+    .attr("cx",20)
+    .attr("cy",20)
+    .attr("r",20)
+    .style("fill","red")
+
+</script>
+
 </html>
