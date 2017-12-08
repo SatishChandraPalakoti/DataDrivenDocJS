@@ -55,6 +55,9 @@
   d3.select("#b").transition().delay(3000).style("opacity",0.75);
   d3.selectAll("circle").transition().duration(5000).attr("cy",200);
 
+
+  d3.csv("cities.csv",function(d){console.log(d)});
+
 </script>
 
 </html>
