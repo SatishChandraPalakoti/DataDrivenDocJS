@@ -56,8 +56,29 @@
   d3.selectAll("circle").transition().duration(5000).attr("cy",200);
 
 
-  d3.csv("cities.csv",function(d){console.log(d)});
+  // d3.csv("assets/dataFiles/cities.csv",function(d){console.log(d)});
 
+
+  //2.1.3
+  // a. Casting
+  console.log("****Casting****")
+  parseInt("77");
+  parseFloat("3.14");
+  Date.parse("Sun, 22 Dec 2013 08:00:00 GMT");
+  text = "alpha,beta,gamma"; text.split(",");
+  console.log("**** casting completed ****")
+
+
+  // b. Scaling
+  console.log("****Scaling****")
+  var newRamp = d3.scale.linear().domain([10000,50000]).range([0,50]);
+  console.log(newRamp(20000))
+  console.log(newRamp(45320))
+  console.log("****Scaling ends****")
+
+  // c. Binning
+
+  // d. Categorizing
 </script>
 
 </html>
