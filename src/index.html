@@ -21,39 +21,44 @@
   // d3.select("div").style("background-color","pink").style("font","24px").attr("id","newDiv"). attr("class","d3Div").on("click",function(){alert('you clicked')})
 
   // d3.select("body").append("svg");
-  d3.select("svg")
-    .append("circle")
-    .attr("r", 20)
-    .attr("cx",20)
-    .attr("cy",20)
-    .style("fill","red");
 
-  d3.select("svg")
-    .append("text")
-    .attr("id", "a")
-    .attr("x",20)
-    .attr("y",20)
-    .style("opacity", 0)
-    .text("HELLO WORLD");
+   var lesson1 =  function(){
+     d3.select("svg")
+       .append("circle")
+       .attr("r", 20)
+       .attr("cx",20)
+       .attr("cy",20)
+       .style("fill","red");
 
-  d3.select("svg")
-    .append("circle")
-    .attr("r", 100)
-    .attr("cx",400)
-    .attr("cy",400)
-    .style("fill","lightblue");
+     d3.select("svg")
+       .append("text")
+       .attr("id", "a")
+       .attr("x",20)
+       .attr("y",20)
+       .style("opacity", 0)
+       .text("HELLO WORLD");
 
-  d3.select("svg")
-    .append("text")
-    .attr("id", "b")
-    .attr("x",400)
-    .attr("y",400)
-    .style("opacity", 0)
-    .text("Uh, hi.");
+     d3.select("svg")
+       .append("circle")
+       .attr("r", 100)
+       .attr("cx",400)
+       .attr("cy",400)
+       .style("fill","lightblue");
 
-  d3.select("#a").transition().delay(1000).style("opacity",1);
-  d3.select("#b").transition().delay(3000).style("opacity",0.75);
-  d3.selectAll("circle").transition().duration(5000).attr("cy",200);
+     d3.select("svg")
+       .append("text")
+       .attr("id", "b")
+       .attr("x",400)
+       .attr("y",400)
+       .style("opacity", 0)
+       .text("Uh, hi.");
+
+     d3.select("#a").transition().delay(1000).style("opacity",1);
+     d3.select("#b").transition().delay(3000).style("opacity",0.75);
+     d3.selectAll("circle").transition().duration(5000).attr("cy",200);
+  }
+
+  // lesson1();
 
 
   // d3.csv("assets/dataFiles/cities.csv",function(d){console.log(d)});
@@ -61,24 +66,58 @@
 
   //2.1.3
   // a. Casting
-  console.log("****Casting****")
-  parseInt("77");
-  parseFloat("3.14");
-  Date.parse("Sun, 22 Dec 2013 08:00:00 GMT");
-  text = "alpha,beta,gamma"; text.split(",");
-  console.log("**** casting completed ****")
+//   console.log("****Casting****")
+//   parseInt("77");
+//   parseFloat("3.14");
+//   Date.parse("Sun, 22 Dec 2013 08:00:00 GMT");
+//   text = "alpha,beta,gamma"; text.split(",");
+//   console.log("**** casting completed ****")
+//
+//
+//   // b. Scaling
+//   console.log("****Scaling****")
+//   var newRamp = d3.scale.linear().domain([10000,50000]).range([0,50]);
+//   console.log(newRamp(20000))
+//   console.log(newRamp(45320))
+//   console.log("****Scaling ends****")
+//
+//   // c. Binning
+// console.log("****Binning****")
+//   var sampleArray = [423,124,66,424,58,10,900,44,1];
+//   var result = sampleArray.sort()
+//   console.log(result)
+//
+// var qScale = d3.scale.quantile().domain(sampleArray).range(["small","medium","large"]);
+// console.log(qScale(423));
+// console.log(qScale(20));
+// console.log("****Binning ends****")
+//
+//
+// console.log("**** nesting ****")
+// d3.json("assets/dataFiles/tweets.json",function(data){
+//   var tweetsData = data.tweets;
+//   var nestedTweets = d3.nest().key(function(el){
+//     return el.user;
+//   }).entries(tweetsData)
+//   console.log(nestedTweets)
+// })
+//
+// console.log("**** nesting ends****")
 
+d3.csv("assets/dataFiles/cities.csv",function(error,data){
+    console.log(data);
+    visualize(data)  ;
+})
 
-  // b. Scaling
-  console.log("****Scaling****")
-  var newRamp = d3.scale.linear().domain([10000,50000]).range([0,50]);
-  console.log(newRamp(20000))
-  console.log(newRamp(45320))
-  console.log("****Scaling ends****")
+visualize = function(input){
+  d3.select("body").selectAll("div.cities")
+    .data(input)
+    .enter()
+    .append('div')
+    .attr('class','cities')
+    .html(function(d,i){return d.label});
+}
 
-  // c. Binning
-
-  // d. Categorizing
 </script>
 
 </html>
