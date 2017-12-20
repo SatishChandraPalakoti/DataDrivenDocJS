@@ -118,17 +118,44 @@ visualize = function(input){
     .html(function(d,i){return d.label});
 }
 
-var maxHeight = d3.max([23,54,11,90,47,88]);
-d3.select("svg")
-  .selectAll("rect")
-  .data([23,54,11,90,47,88])
-  .enter()
-  .append("rect")
-  .attr("width",10)
-  .attr("height", d=>d)
-  .attr("opacity",0.85)
-  .attr("x", (d,i)=> (i*20)+20)
-  .attr("y", (d=> (maxHeight-d)+100))
+// var maxHeight = d3.max([23,54,11,90,47,88]);
+// var yScale = d3.scale.linear().domain([0,100,500]).range([0,50,100]).clamp(true)
+// d3.select("svg")
+//   .selectAll("rect")
+//   .data([14, 68, 24500, 430, 19, 1000, 5555])
+//   .enter()
+//   .append("rect")
+//   .attr("width",12)
+//   .attr("height", d=>yScale(d))
+//   .attr("opacity",0.85)
+//   .attr("fill","pink")
+//   .attr("stroke","green")
+//   .attr("stroke-width","2px")
+//   .attr("x", (d,i)=> (i*20)+20)
+//   .attr("y", (d=> (maxHeight-yScale(d))+200))
+
+d3.csv("assets/dataFiles/cities.csv",function(err,data){
+  console.log("Printing the data");
+  dataViz(data);
+})
+
+dataViz = function(input){
+var maxPop = d3.max(input, d=> parseInt(d.population))
+var minPop = d3.min(input, d=> parseInt(d.population))
+var yScale = d3.scale.linear().domain([minPop,maxPop]).range([0,500])
+  d3.select("svg")
+    .selectAll("rect")
+    .data(input)
+    .enter()
+    .append("rect")
+    .attr("width", 15)
+    .attr("height", d=> yScale(parseInt(d.population)))
+    .attr("x", (d,i)=>i*50)
+    .attr("y", (d,i)=>yScale(maxPop)-yScale(parseInt(d.population)))
+
+
+}
+
 </script>
 
 </html>
