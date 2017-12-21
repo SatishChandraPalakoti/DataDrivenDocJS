@@ -105,7 +105,7 @@
 // console.log("**** nesting ends****")
 
 d3.csv("assets/dataFiles/cities.csv",function(error,data){
-    console.log(data);
+    // console.log(data);
     // visualize(data)  ;
 })
 
@@ -136,7 +136,7 @@ visualize = function(input){
 
 d3.csv("assets/dataFiles/cities.csv",function(err,data){
   console.log("Printing the data");
-  dataViz(data);
+  // dataViz(data);
 })
 
 dataViz = function(input){
@@ -152,9 +152,38 @@ var yScale = d3.scale.linear().domain([minPop,maxPop]).range([0,500])
     .attr("height", d=> yScale(parseInt(d.population)))
     .attr("x", (d,i)=>i*50)
     .attr("y", (d,i)=>yScale(maxPop)-yScale(parseInt(d.population)))
-
-
 }
+
+var nestedData ;
+var userTweets=[];
+d3.json("assets/dataFiles/tweets.json",function(err,data){
+  nestedData = d3.nest()
+                    .key(d=>d.user)
+                    .entries(data.tweets);
+                    nestedData.forEach(function(el,index){
+                      userTweets.push({"user":el.key,"tweetCount":el.values.length});
+                    })
+    console.log(userTweets)
+    tweetVisualize(userTweets);
+})
+
+tweetVisualize = function(data){
+  var maxTweets = d3.max(data, d=> d.tweetCount)
+  var yScale = d3.scale.linear().domain([0,parseInt(maxTweets)]).range([0,100])
+  d3.select("svg")
+    .selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("width",12)
+    .attr("height", d=>yScale(parseInt(d.tweetCount)))
+    .attr("fill", "red")
+    .attr("x", (d,i)=> i==0?10:i*50)
+    .attr("y", d=> yScale(maxTweets)-yScale(parseInt(d.tweetCount)))
+}
+
+
+
 
 </script>
 
