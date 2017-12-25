@@ -135,7 +135,6 @@ visualize = function(input){
 //   .attr("y", (d=> (maxHeight-yScale(d))+200))
 
 d3.csv("assets/dataFiles/cities.csv",function(err,data){
-  console.log("Printing the data");
   // dataViz(data);
 })
 
@@ -163,8 +162,8 @@ d3.json("assets/dataFiles/tweets.json",function(err,data){
                     nestedData.forEach(function(el,index){
                       userTweets.push({"user":el.key,"tweetCount":el.values.length});
                     })
-    console.log(userTweets)
-    tweetVisualize(userTweets);
+    // console.log(userTweets)
+    // tweetVisualize(userTweets);
 })
 
 tweetVisualize = function(data){
@@ -181,6 +180,7 @@ tweetVisualize = function(data){
     .attr("x", (d,i)=> i==0?10:i*50)
     .attr("y", d=> yScale(maxTweets)-yScale(parseInt(d.tweetCount)))
 }
+
 
 
 
