@@ -4,15 +4,22 @@
   <meta charset="utf-8">
   <title>DataDrivenDocs</title>
   <base href="/">
-  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
 </head>
 <body>
   <app-root></app-root>
   <div id="vizcontainer">
   <svg style="width:500px;height:500px;border:1px lightgray solid;" />
   </div>
+
+  <div id="viz">
+    <svg style="width:500px;height:500px;border:1px lightgray solid;" />
+  </div>
+  <div id="controls"></div>
+
 </body>
 <script type="text/javascript">
 
@@ -32,23 +39,27 @@ loadScatter=function(){
 renderScatter = function(incomingData){
   var maxFollow = d3.max(incomingData, d=> d.following);
   var startEnd = d3.extent(incomingData , d=> d.time);
-  var xScale = d3.time.scale().domain([startEnd]).range([20,480]);
+  var xScale = d3.time.scale().domain(startEnd).range([20,480]);
   var yScale = d3.scale.linear().domain([0,maxFollow]).range([0,460]);
   var radiusScale = d3.scale.linear().domain([0,maxFollow]).range([1,20]);
+  var color = d3.scale.linear().domain([0,maxFollow]).range(["AA00AA","#FFFFEE"])
+
   d3.select("svg")
     .selectAll("circle")
     .data(incomingData)
     .enter()
     .append("circle")
-    .attr("cx", d=>xScale(d.time))
-    .attr("cy", d=>480-yScale(d.following))
-    .attr("r", d=>radiusScale(d.following))
-    .attr("fill","red")
+    .attr("cx", d => xScale(d.time))
+    .attr("cy", d => 480-yScale(d.following))
+    .attr("r", d => radiusScale(d.following))
+    .attr("fill",d=> color(d.following))
     .attr("stroke-fill","black")
     .attr("stroke","2px")
 }
 
-loadScatter()
+// loadScatter()
+
+
 
 
 </script>
