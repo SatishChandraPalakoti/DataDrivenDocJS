@@ -66,8 +66,11 @@ function visualizae(incomingData){
         .attr("y",30)
         .text(d=>d.team)
 
-  d3.selectAll("g.overallG").select("circle").insert("image","text")
-        .attr("xlink:href",d=> `assets/images/`+d.team+`.png`)
+  select.insert("image")
+        .attr("xlink:href",function(d){
+          console.log("Adding country flag " + "assets/images/"+d.team+".png")
+          return "assets/images/"+d.team+".png";
+        })
         .attr("width", "45px").attr("height", "20px")
         .attr("x", -22).attr("y", -10)
 
