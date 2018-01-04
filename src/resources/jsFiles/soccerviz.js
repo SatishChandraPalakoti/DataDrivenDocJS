@@ -24,6 +24,10 @@ function createSoccerViz(){
           .attr("r", d=> radiusScale(d[dataPoint]))
           .attr("fill", d=> colorScheme(d[dataPoint]))
 
+          d3.text("infobox.html",html=>{
+            d3.select("body").append("div").attr("id","infobox")
+            .html(html)
+          })
 
         })
         .html(d=>d)

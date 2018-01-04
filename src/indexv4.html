@@ -12,8 +12,12 @@
 <body onload="createSoccerViz()">
   <app-root></app-root>
   <div id="vizcontainer">
+
   <svg style="width:500px;height:500px;border:1px lightgray solid;" />
   </div>
+
+
+
 
   <!-- <div id="viz">
     <svg style="width:500px;height:500px;border:1px lightgray solid;" />
@@ -73,5 +77,24 @@ renderScatter = function(incomingData){
     .inactive{
         fill : gray
     }
+
+    #infobox {
+    position: fixed;
+    left: 150px;
+    top: 20px;
+    z-index: 1;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+  }
+  tr {
+    border: 1px gray solid;
+  }
+  td {
+    font-size: 10px;
+  }
+  td.data {
+    font-weight: 900;
+  }
 </style>
 </html>
