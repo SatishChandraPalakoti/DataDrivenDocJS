@@ -19,21 +19,31 @@ function createSoccerViz(){
           var maxVal = d3.max(data, d=> d[dataPoint])
           var radiusScale = d3.scale.linear().domain([0,maxVal]).range([0,20])
           var colorScheme = d3.scale.quantize().domain([0,maxVal]).range(colorbrewer.Reds[6])
+          var fourColorScale = d3.scale.ordinal()
+              .domain(["UEFA", "CONMEBOL", "CAF", "AFC"])
+              .range(["#5eafc6", "#FE9922", "#93C464", "#fcbc34" ])
 
           d3.selectAll("g.overallG").select("circle").transition().duration(1000)
           .attr("r", d=> radiusScale(d[dataPoint]))
-          .attr("fill", d=> colorScheme(d[dataPoint]))
+          .attr("fill", d=> {console.log(d);colorScheme(d[dataPoint])})
 
-          d3.text("infobox.html",html=>{
+          d3.selectAll("path").attr("fill",d=>{
+            console.log(d);
+            fourColorScale("CONMEBOL")
+          })
+
+          d3.text("assets/additional/infoBox.html",html=>{
             d3.select("body").append("div").attr("id","infobox")
             .html(html)
           })
+
+
 
         })
         .html(d=>d)
 
 
-
+// bb
    })
 }
 
@@ -70,13 +80,13 @@ function visualizae(incomingData){
         .attr("y",30)
         .text(d=>d.team)
 
-  select.insert("image")
-        .attr("xlink:href",function(d){
-          console.log("Adding country flag " + "assets/images/"+d.team+".png")
-          return "assets/images/"+d.team+".png";
-        })
-        .attr("width", "45px").attr("height", "20px")
-        .attr("x", -22).attr("y", -10)
+  // select.insert("image")
+  //       .attr("xlink:href",function(d){
+  //         console.log("Adding country flag " + "assets/images/"+d.team+".png")
+  //         return "assets/images/"+d.team+".png";
+  //       })
+  //       .attr("width", "45px").attr("height", "20px")
+  //       .attr("x", -22).attr("y", -10)
 
   select.on("mouseover",function(d){
     // console.log("mouse over called")
@@ -94,6 +104,37 @@ function visualizae(incomingData){
     d3.selectAll("g.overallG").select("circle")
       .classed("active", false)
       .classed("inactive", false)
+  })
+
+  select.on("click",function(d){
+    d3.selectAll("td.data").data(d3.values(d))
+    .html(p=>p)
+  })
+
+
+  d3.html("assets/images/ball.svg",function(svgData){
+    console.log(svgData)
+    // while(!d3.select(svgData).selectAll("path").empty()){
+    //   d3.select("svg").node().appendChild(
+    //     d3.select(svgData).select("path").node()
+    //   )
+    //       d3.selectAll("path").attr("transform","translate(40,40)");
+    // }
+
+    // d3.select(svgData).selectAll("path").each(function(){
+    //   d3.select("svg").node().appendChild(this);
+    // })
+    // d3.selectAll("path").attr("transform","translate(40,40)");
+    d3.selectAll("g").each(function(){
+        var parent = this;
+        d3.select(svgData).select("path").each(function(){
+          parent.appendChild(this.cloneNode(true));
+          d3.selectAll("path").attr("transform","translate(-10,-10)");
+        })
+    })
+
+    d3.selectAll("path").style("fill", "#93C464").style("stroke", "blue").style("stroke-width", "1px");
+
   })
 
 

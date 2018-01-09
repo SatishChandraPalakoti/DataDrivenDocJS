@@ -21,7 +21,7 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": ["resources/jsFiles/d3.v3.min.js","resources/jsFiles/soccerviz.js","resources/additional"],
+      "scripts": ["resources/jsFiles/d3.v3.min.js","resources/jsFiles/soccerviz.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
